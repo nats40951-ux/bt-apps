@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Discover useful apps from BT Apps.">
+<title>BT Apps — App Center</title>
+<style>
+:root{--bg:#0b1020;--panel:#121a2e;--panel2:#18233b;--text:#f4f7ff;--muted:#aab6d0;--accent:#66e3c4;--blue:#79a7ff}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:radial-gradient(circle at top right,#182c4e 0,transparent 35%),var(--bg);color:var(--text)}
+a{color:inherit;text-decoration:none}
+header{position:sticky;top:0;z-index:5;background:#0b1020eF;border-bottom:1px solid #ffffff16;backdrop-filter:blur(12px)}
+.nav{max-width:1100px;margin:auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.brand{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:800}
+.logo{width:40px;height:40px;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--blue));color:#071323;display:grid;place-items:center;font-weight:900}
+.nav a{color:var(--muted);font-size:14px}
+main{max-width:1100px;margin:auto;padding:35px 20px 60px}
+.hero{padding:42px 0 30px;max-width:700px}
+.tag{color:var(--accent);font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase}
+h1{font-size:clamp(34px,6vw,58px);line-height:1.04;margin:15px 0}
+.hero p{color:var(--muted);font-size:17px;line-height:1.6;max-width:590px}
+.searchbar{display:flex;gap:10px;max-width:650px;margin:25px 0}
+.searchbar input{flex:1;min-width:0;background:var(--panel);border:1px solid #ffffff20;border-radius:12px;padding:15px;color:var(--text);font-size:16px;outline:none}
+.searchbar input:focus{border-color:var(--accent)}
+button,.download{border:0;border-radius:11px;background:var(--accent);color:#06151a;font-weight:800;padding:13px 17px;cursor:pointer;display:inline-block}
+.categories{display:flex;gap:9px;flex-wrap:wrap;margin:15px 0 30px}
+.chip{background:var(--panel);color:var(--muted);border:1px solid #ffffff16;border-radius:999px;padding:9px 14px;cursor:pointer}
+.chip.active{background:var(--accent);color:#06151a;border-color:var(--accent);font-weight:700}
+.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:28px 0 16px}
+h2{font-size:25px;margin:0}
+#count{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{background:linear-gradient(150deg,var(--panel2),var(--panel));border:1px solid #ffffff12;border-radius:18px;padding:20px;display:flex;flex-direction:column;min-height:260px}
+.appicon{width:58px;height:58px;border-radius:17px;display:grid;place-items:center;font-size:27px;background:linear-gradient(135deg,#233e60,#245b61);margin-bottom:15px}
+.card h3{margin:0 0 8px;font-size:19px}
+.card p{color:var(--muted);font-size:14px;line-height:1.5;margin:0 0 15px;flex:1}
+.meta{font-size:12px;color:var(--muted);margin-bottom:15px}
+.card .download{align-self:flex-start;padding:10px 14px;font-size:13px}
+.notice{margin-top:20px;padding:14px 16px;border:1px solid #ffffff18;border-radius:12px;color:var(--muted);font-size:13px;line-height:1.5}
+footer{border-top:1px solid #ffffff16;padding:25px 20px;color:var(--muted);text-align:center;font-size:13px}
+.empty{grid-column:1/-1;color:var(--muted);padding:30px;text-align:center;background:var(--panel);border-radius:14px}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){.nav{padding:12px 15px}main{padding:25px 15px 45px}.hero{padding-top:28px}.searchbar{flex-direction:column}.searchbar button{width:100%}.grid{grid-template-columns:1fr}.card{min-height:230px}.nav a{font-size:12px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a class="brand" href="#"><span class="logo">BT</span><span>BT Apps</span></a>
+    <a href="#apps">Explore Apps ↓</a>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <div class="tag">Your app center</div>
+    <h1>Find your next<br><span style="color:var(--accent)">favorite app.</span></h1>
+    <p>Discover useful apps made and collected by BT Apps. Search the catalog and open the download link for an app.</p>
+    <div class="searchbar">
+      <input id="search" type="search" placeholder="Search apps..." aria-label="Search apps">
+      <button id="searchBtn">Search</button>
+    </div>
+  </section>
+  <section id="apps">
+    <div class="sectionhead"><h2>Explore apps</h2><span id="count">3 apps</span></div>
+    <div class="categories" id="categories">
+      <button class="chip active" data-cat="All">All apps</button>
+      <button class="chip" data-cat="Tools">Tools</button>
+      <button class="chip" data-cat="Education">Education</button>
+      <button class="chip" data-cat="Entertainment">Entertainment</button>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="notice"><strong>Owner note:</strong> Replace each sample app's <code>#</code> download link in the code with your real app download URL. The sample cards are examples and do not contain actual app files.</div>
+  </section>
+</main>
+<footer>© <span id="year"></span> BT Apps · Made with care</footer>
+<script>
+/* EDIT THIS LIST: change names, descriptions, categories, icons, and download URLs. */
+const apps = [
+  {name:"BT Scientific Calculator",category:"Tools",icon:"🧮",description:"A sample listing for your scientific calculator app.",version:"Add version",url:"#"},
+  {name:"BT Credit Record",category:"Tools",icon:"📒",description:"A sample listing for a credit and payment record app.",version:"Add version",url:"#"},
+  {name:"BT Learning Hub",category:"Education",icon:"📚",description:"A sample listing for educational resources and learning.",version:"Add version",url:"#"}
+];
+let activeCategory="All";
+const grid=document.getElementById("grid");
+const search=document.getElementById("search");
+function render(){
+  const term=search.value.trim().toLowerCase();
+  const visible=apps.filter(app=>(activeCategory==="All"||app.category===activeCategory)&&
+    (app.name.toLowerCase().includes(term)||app.description.toLowerCase().includes(term)||app.category.toLowerCase().includes(term)));
+  document.getElementById("count").textContent=visible.length+" app"+(visible.length===1?"":"s");
+  grid.innerHTML="";
+  if(!visible.length){grid.innerHTML='<div class="empty">No apps found. Try another search.</div>';return;}
+  visible.forEach(app=>{
+    const card=document.createElement("article");card.className="card";
+    const icon=document.createElement("div");icon.className="appicon";icon.textContent=app.icon;
+    const title=document.createElement("h3");title.textContent=app.name;
+    const desc=document.createElement("p");desc.textContent=app.description;
+    const meta=document.createElement("div");meta.className="meta";meta.textContent=app.category+" · "+app.version;
+    const link=document.createElement("a");link.className="download";link.textContent="Download app";link.href=app.url;
+    if(app.url==="#"){link.addEventListener("click",e=>{e.preventDefault();alert("Add your real app download URL in the apps list in index.html first.");});}
+    else {link.target="_blank";link.rel="noopener noreferrer";}
+    card.append(icon,title,desc,meta,link);grid.appendChild(card);
+  });
+}
+document.querySelectorAll(".chip").forEach(button=>button.addEventListener("click",()=>{
+  activeCategory=button.dataset.cat;
+  document.querySelectorAll(".chip").forEach(b=>b.classList.toggle("active",b===button));
+  render();
+}));
+document.getElementById("searchBtn").addEventListener("click",render);
+search.addEventListener("input",render);
+search.addEventListener("keydown",e=>{if(e.key==="Enter")render();});
+document.getElementById("year").textContent=new Date().getFullYear();
+render();
+</script>
+</body>
+</html>
